@@ -35,12 +35,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.itstack.calculator.R
 import androidx.compose.runtime.*
+import com.itstack.calculator.Backend.calculateData
 import com.itstack.calculator.ui.theme.CUSTOM_KEYBOARD
 
 @Composable
 @Preview(showBackground = true)
 fun calc(){
     var input by remember { mutableStateOf("") }
+    var output by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -103,7 +105,7 @@ fun calc(){
                             .weight(4f),
                         horizontalArrangement = Arrangement.End
                     ){
-                        Text(text = "${input.length}",
+                        Text(text = "${output}",
                             color = Color.Gray,
                             fontSize = 40.sp,
                             fontWeight = FontWeight.Bold
@@ -129,6 +131,7 @@ fun calc(){
                         Button(
                             onClick = {
                                 input = ""
+                                output = ""
                             },
                             modifier = Modifier
                                 .weight(1f)
@@ -177,7 +180,7 @@ fun calc(){
                             )
                         }
                         Button(
-                            onClick = {  },
+                            onClick = { input+="/" },
                             modifier = Modifier
                                 .weight(1f)
                                 .fillMaxHeight(),
@@ -253,7 +256,7 @@ fun calc(){
                             )
                         }
                         Button(
-                            onClick = {  },
+                            onClick = { input+="*" },
                             modifier = Modifier
                                 .weight(1f)
                                 .fillMaxHeight(),
@@ -328,7 +331,7 @@ fun calc(){
                             )
                         }
                         Button(
-                            onClick = {  },
+                            onClick = { input+="-" },
                             modifier = Modifier
                                 .weight(1f)
                                 .fillMaxHeight(),
@@ -404,7 +407,7 @@ fun calc(){
                             )
                         }
                         Button(
-                            onClick = {  },
+                            onClick = { input+="+" },
                             modifier = Modifier
                                 .weight(1f)
                                 .fillMaxHeight(),
@@ -474,7 +477,7 @@ fun calc(){
                             )
                         }
                         Button(
-                            onClick = {  },
+                            onClick = { output = calculateData(input).toString() },
                             modifier = Modifier
                                 .weight(1f)
                                 .fillMaxHeight(),
